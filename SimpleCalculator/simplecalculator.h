@@ -17,7 +17,8 @@ public:
 
     void SetResult(QString str);
     void OpreatorStep();
-    void ComputeEng(int n);
+    void SetNumber(int n);
+    void ComputeEng();
 
 private slots:
     void on_zeroPB_clicked();

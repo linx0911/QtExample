@@ -25,85 +25,91 @@ void SimpleCalculator::SetResult(QString str)
     ui->resultLbl->setText(str);
 }
 
-void SimpleCalculator::ComputeEng(int n)
+void SimpleCalculator::SetNumber(int n)
 {
-    SetResult(QString::number(n));
     if(state){
-        curNum = n;
-        state = false;
+        curNum = 10 * curNum + n;
+        SetResult(QString::number(curNum));
     }
     else{
-        switch (opt) {
-            case 1:
-                curNum += nextNum;
-                break;
-            case 2:
-                curNum -= nextNum;
-                break;
-            case 3:
-                curNum *= nextNum;
-                break;
-        }
-        nextNum = n;
-        cout<<curNum<<" "<<nextNum<<endl;
+        nextNum = 10 * nextNum + n;
+        SetResult(QString::number(nextNum));
     }
+}
+
+void SimpleCalculator::ComputeEng()
+{
+    switch (opt) {
+        case 1:
+            curNum += nextNum;
+            break;
+        case 2:
+            curNum -= nextNum;
+            break;
+        case 3:
+            curNum *= nextNum;
+            break;
+    }
+    SetResult(QString::number(curNum));
 }
 
 void SimpleCalculator::OpreatorStep()
 {
-    SetResult(QString::number(curNum));
+    if(!state) ComputeEng();
+    else SetResult(QString::number(curNum));
     state = false;
+    nextNum = 0;
 }
 
 void SimpleCalculator::on_zeroPB_clicked()
 {
-    ComputeEng(0);
+    SetNumber(0);
 }
 
 
 void SimpleCalculator::on_onePB_clicked()
 {
-    ComputeEng(1);
+    SetNumber(1);
 }
 
 void SimpleCalculator::on_twoPB_clicked()
 {
-    ComputeEng(2);
+    SetNumber(2);
 }
 
 void SimpleCalculator::on_threePB_clicked()
 {
-    ComputeEng(3);
+    SetNumber(3);
 }
 
 void SimpleCalculator::on_fourPB_clicked()
 {
-    ComputeEng(4);
+    SetNumber(4);
 }
 
 void SimpleCalculator::on_fivePB_clicked()
 {
-    ComputeEng(5);
+    SetNumber(5);
 }
 
 void SimpleCalculator::on_sixPB_clicked()
 {
-    ComputeEng(6);
+    SetNumber(6);
 }
 
 void SimpleCalculator::on_sevenPB_clicked()
 {
-    ComputeEng(7);
+    SetNumber(7);
 }
 
 void SimpleCalculator::on_eightPB_clicked()
 {
-    ComputeEng(8);
+    SetNumber(8);
 }
 
 void SimpleCalculator::on_ninePB_clicked()
 {
-    ComputeEng(9);
+    SetNumber(9);
 }
 
 void SimpleCalculator::on_resetPB_clicked()
@@ -115,10 +121,9 @@ void SimpleCalculator::on_resetPB_clicked()
 
 void SimpleCalculator::on_equalPB_clicked()
 {
-    ComputeEng(0);
-    nextNum = 0;
-    SetResult(QString::number(curNum));
+    OpreatorStep();
     state = true;
+    nextNum = 0;
 
 }
 
@@ -137,7 +142,6 @@ void SimpleCalculator::on_minusPB_clicked()
 
 void SimpleCalculator::on_mulPB_clicked()
 {
-    nextNum = 1;
     opt = 3;
     OpreatorStep();
 }
