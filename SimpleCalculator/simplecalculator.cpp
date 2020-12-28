@@ -20,9 +20,12 @@ SimpleCalculator::~SimpleCalculator()
     delete ui;
 }
 
-void SimpleCalculator::SetResult(QString str)
+void SimpleCalculator::SetResult(QString str, int fontSize)
 {
     ui->resultLbl->setText(str);
+    QFont tmpFont = ui->resultLbl->font();
+    tmpFont.setPixelSize(fontSize);
+    ui->resultLbl->setFont(tmpFont);
 }
 
 void SimpleCalculator::SetNumber(int n)
@@ -49,6 +52,14 @@ void SimpleCalculator::ComputeEng()
         case 3:
             curNum *= nextNum;
             break;
+        case 4:
+            if(nextNum == 0){
+                SetResult("Can't divide Zero", 50);
+                curNum = 0;
+                nextNum = 0;
+                return;
+            }
+            curNum /= nextNum;
     }
     SetResult(QString::number(curNum));
 }
@@ -143,5 +154,11 @@ void SimpleCalculator::on_minusPB_clicked()
 void SimpleCalculator::on_mulPB_clicked()
 {
     opt = 3;
+    OpreatorStep();
+}
+
+void SimpleCalculator::on_divPB_clicked()
+{
+    opt = 4;
     OpreatorStep();
 }

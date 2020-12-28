@@ -15,7 +15,7 @@ public:
     SimpleCalculator(QWidget *parent = nullptr);
     ~SimpleCalculator();
 
-    void SetResult(QString str);
+    void SetResult(QString str, int fontSize=100);
     void OpreatorStep();
     void SetNumber(int n);
     void ComputeEng();
@@ -50,6 +50,8 @@ private slots:
     void on_minusPB_clicked();
 
     void on_mulPB_clicked();
+
+    void on_divPB_clicked();
 
 private:
     Ui::SimpleCalculator *ui;
