@@ -12,6 +12,7 @@ SimpleCalculator::SimpleCalculator(QWidget *parent)
     curNum = 0;
     nextNum = 0;
     state = true;
+    opt = 3;
     opt = 1;
 }
 
