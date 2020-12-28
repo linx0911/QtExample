@@ -55,6 +55,7 @@ void SimpleCalculator::OpreatorStep()
     state = false;
 }
 
+//  SlOTS
 void SimpleCalculator::on_zeroPB_clicked()
 {
     ComputeEng(0);
