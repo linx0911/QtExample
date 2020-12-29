@@ -1,5 +1,6 @@
 #include "ghostleggenerator.h"
 #include "ui_ghostleggenerator.h"
+#include <iostream>
 
 GhostLegGenerator::GhostLegGenerator(QWidget *parent)
     : QMainWindow(parent)
@@ -7,9 +8,9 @@ GhostLegGenerator::GhostLegGenerator(QWidget *parent)
 {
     ui->setupUi(this);
     stX = 20;
-    stY = 10;
+    stY = 5;
     endX = 750;
-    endY = 10;
+    endY = 5;
     yDiff = 50;
     btnIndex = 1;
     btnW = btnH = 30;
@@ -62,5 +63,29 @@ QPushButton* GhostLegGenerator::CreateButton(int n)
 
 void GhostLegGenerator::on_runPB_clicked()
 {
-    GenButton();
+    reset();
+    int btnNum = ui->numberLE->text().toInt();
+    if(btnNum > 10 || btnNum <= 0) return;
+    int unitH = 500/btnNum;
+    btnH = unitH*0.5;
+    if(btnH > 30) btnH = 30;
+    btnH -= 5;
+    yDiff = unitH - btnH;
+    for(int i = 0; i < btnNum; ++i)
+        GenButton();
+}
+
+void GhostLegGenerator::reset()
+{
+    for(QPushButton* qTmpPB:qStartBtnList){
+        delete qTmpPB;
+    }
+    for(QPushButton* qTmpPB:qEndBtnList){
+        delete qTmpPB;
+    }
+    qStartBtnList.clear();
+    qEndBtnList.clear();
+    btnIndex = 1;
+    stY = 5;
+    endY = 5;
 }

@@ -21,6 +21,7 @@ public:
     QPushButton* CreateButton(int n);
     QPushButton* CreateStartButton(int n);
     QPushButton* CreateEndButton(int n);
+    void reset();
 
 
 private slots:
